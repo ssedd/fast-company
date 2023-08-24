@@ -16,23 +16,12 @@ const SelectField = ({
   const getInputClasses = () => {
     return "form-select" + (error ? " is-invalid" : "");
   };
-  // const optionsArray =
-  //   !Array.isArray(options) && typeof options === "object"
-  //     ? Object.keys(options).map((optionName) => ({
-  //         name: options[optionName].name,
-  //         value: options[optionName]._id
-  //       }))
-  //     : options;
 
   const optionsArray =
     !Array.isArray(options) && typeof options === "object"
       ? Object.values(options)
       : options;
 
-  // console.log(
-  //   "options",
-  //   options && options.map((option) => console.log(option.label))
-  // );
   return (
     <div className="mb-4">
       <label htmlFor={name} className="form-label">

@@ -7,6 +7,8 @@ const LoginForm = () => {
   const [data, setData] = useState({ email: "", password: "", stayOn: false });
   const [errors, setErrors] = useState({});
 
+  // console.log(" LoginForm data ", data);
+
   const handleChange = (target) => {
     setData((prevState) => ({ ...prevState, [target.name]: target.value }));
   };
