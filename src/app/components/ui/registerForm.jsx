@@ -16,6 +16,7 @@ const RegisterForm = () => {
     qualities: [],
     licence: false
   });
+
   const [qualities, setQualities] = useState([]);
   const [errors, setErrors] = useState({});
   const [professions, setProfessions] = useState();
@@ -137,6 +138,14 @@ const RegisterForm = () => {
       />
       <TextField
         label="Пароль"
+        name="password"
+        type="password"
+        value={data.password}
+        onChange={handleChange}
+        error={errors.password}
+      />
+      <TextField
+        label="Повторите пароль"
         name="password"
         type="password"
         value={data.password}

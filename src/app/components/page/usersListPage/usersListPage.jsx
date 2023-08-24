@@ -8,6 +8,7 @@ import SearchStatus from "../../ui/searchStatus";
 import UserTable from "../../ui/usersTable";
 import _ from "lodash";
 import Loading from "../../../layouts/loading";
+import { useUser } from "../../../hooks/useUsers";
 
 const UsersListPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -17,13 +18,11 @@ const UsersListPage = () => {
   const [sortBy, setSortBy] = useState({ iter: "name", order: "asc" });
   const pageSize = 8;
 
-  const [users, setUsers] = useState();
-  useEffect(() => {
-    api.users.fetchAll().then((data) => setUsers(data));
-  }, []);
+  const { users } = useUser();
 
   const handleDelete = (userId) => {
-    setUsers(users.filter((user) => user._id !== userId));
+    // setUsers(users.filter((user) => user._id !== userId));
+    console.log(userId);
   };
 
   useEffect(() => {
@@ -65,6 +64,13 @@ const UsersListPage = () => {
       : selectedProf
       ? users.filter((user) => user.profession._id === selectedProf._id)
       : users;
+
+    // const filtredUsers = selectedProf
+    //   ? users.filter(
+    //       (user) =>
+    //         JSON.stringify(user.profession) === JSON.stringify(selectedProf)
+    //     )
+    //   : users;
 
     const count = filtredUsers.length;
     const sortedUsers = _.orderBy(filtredUsers, [sortBy.path], [sortBy.order]);
