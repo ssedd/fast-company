@@ -4,9 +4,18 @@ import _ from "lodash";
 
 const TableBody = ({ data, columns }) => {
   const renderContent = (item, column) => {
+    // console.log("item", item);
+    // console.log("=======================================");
+    // console.log("column", columns[column]);
+
+    // const dataItem = data.map((item) => console.log(item));
+    // console.log(dataItem);
+
     if (columns[column].component) {
       const component = columns[column].component;
       if (typeof component === "function") {
+        // console.log("component(item)", typeof component === "function");
+        // console.log("component(item)", component(item));
         return component(item);
       }
       return component;

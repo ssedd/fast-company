@@ -21,7 +21,6 @@ const UsersListPage = () => {
   const { users } = useUser();
 
   const handleDelete = (userId) => {
-    // setUsers(users.filter((user) => user._id !== userId));
     console.log(userId);
   };
 
@@ -64,13 +63,6 @@ const UsersListPage = () => {
       : selectedProf
       ? users.filter((user) => user.profession._id === selectedProf._id)
       : users;
-
-    // const filtredUsers = selectedProf
-    //   ? users.filter(
-    //       (user) =>
-    //         JSON.stringify(user.profession) === JSON.stringify(selectedProf)
-    //     )
-    //   : users;
 
     const count = filtredUsers.length;
     const sortedUsers = _.orderBy(filtredUsers, [sortBy.path], [sortBy.order]);

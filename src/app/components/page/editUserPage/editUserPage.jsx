@@ -106,7 +106,6 @@ const EditUserPage = () => {
     }));
   };
 
-  console.log(data.profession);
   return (
     <div className="container mt-5">
       <div className="row">

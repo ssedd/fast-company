@@ -29,6 +29,11 @@ export function validator(data, config) {
         statusValidate = data.length < config.value;
         break;
       }
+      // case "isCaitalSymbol": {
+      //   const capitalRegExp = /[A-Z]+/g;
+      //   if (!capitalRegExp.test(data)) return config.message;
+      //   break;
+      // }
       default:
         break;
     }

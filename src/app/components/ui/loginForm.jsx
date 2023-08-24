@@ -2,39 +2,31 @@ import React, { useState, useEffect } from "react";
 import { validator } from "../../utils/validator";
 import TextField from "../common/form/textField";
 import CheckBoxField from "../common/form/checkBoxField";
+import { useAuth } from "../../hooks/useAuth";
+import { useHistory } from "react-router-dom";
 
 const LoginForm = () => {
+  const history = useHistory();
+
   const [data, setData] = useState({ email: "", password: "", stayOn: false });
   const [errors, setErrors] = useState({});
-
-  // console.log(" LoginForm data ", data);
+  const [enterError, setEnterError] = useState(null);
+  const { signIn } = useAuth();
 
   const handleChange = (target) => {
     setData((prevState) => ({ ...prevState, [target.name]: target.value }));
+    setEnterError(null);
   };
 
   const validatorConfig = {
     email: {
       isRequired: {
         message: "Электронная почта обзязательна для заполнения"
-      },
-      isEmail: {
-        message: "Email введен неккоректно"
       }
     },
     password: {
       isRequired: {
         message: "Пароль обзязателен для заполнения"
-      },
-      isCapitalSymbol: {
-        message: "Пароль ненадежен! Добавьте заглавную букву"
-      },
-      isContainDigit: {
-        message: "Пароль ненадежен! Добавьте цифры"
-      },
-      min: {
-        message: "Минимальная длинна пароля 8 символов",
-        value: 8
       }
     }
   };
@@ -50,11 +42,16 @@ const LoginForm = () => {
   };
   const isValid = Object.keys(errors).length === 0;
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const isValid = validate();
     if (!isValid) return;
-    console.log(data);
+    try {
+      await signIn(data);
+      history.push("/");
+    } catch (error) {
+      setEnterError(error.message);
+    }
   };
   return (
     <form onSubmit={handleSubmit}>
@@ -76,9 +73,10 @@ const LoginForm = () => {
       <CheckBoxField value={data.stayOn} onChange={handleChange} name="stayOn">
         Оставаться в системе{" "}
       </CheckBoxField>
+      {enterError && <p className="text-danger">{enterError}</p>}
       <button
         type="submit"
-        disabled={!isValid}
+        disabled={!isValid || enterError}
         className="btn btn-primary w-100 mx-auto"
       >
         Submit
