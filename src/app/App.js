@@ -9,6 +9,8 @@ import Login from "./layouts/login";
 import Main from "./layouts/main";
 import { QualitiesProvider } from "./hooks/useQualities";
 import AuthProvider from "./hooks/useAuth";
+import ProtectedRoute from "./components/common/protectedRoute";
+import LogOut from "./layouts/logOut";
 
 function App() {
   return (
@@ -20,7 +22,8 @@ function App() {
             <Switch>
               <Route exact path="/" component={Main} />
               <Route path="/login:type?" component={Login} />
-              <Route path="/users/:userId?/:edit?" component={Users} />
+              <Route path="/logout" component={LogOut} />
+              <ProtectedRoute path="/users/:userId?/:edit?" component={Users} />
               {/* <Route path="/404" component={NotFound} /> */}
               <Redirect to="/" />
             </Switch>
